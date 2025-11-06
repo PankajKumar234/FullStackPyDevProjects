@@ -14,7 +14,7 @@ def get_db_connection():
         host="localhost",
         database="taskmanagerdb",
         user="postgres",    # Change if your username is different
-        password="Hurix@1234",  # <-- UPDATE THIS
+        password="Postgres_Password",  # <-- UPDATE THIS
         cursor_factory=RealDictCursor
     )
 
