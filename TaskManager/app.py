@@ -73,5 +73,10 @@ def dashboard():
         return redirect("/login")
     return f"👋 Welcome {session['username']}! <br><br> <a href='/logout'>Logout</a>"
 
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/")
+
 if __name__ == "__main__":
     app.run(debug=True)
