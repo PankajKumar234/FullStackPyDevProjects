@@ -86,5 +86,24 @@ def logout():
     session.clear()
     return redirect("/")
 
+@app.route("/add-task", methods=["GET", "POST"])
+def add_task():
+    if "user_id" not in session:
+        return redirect("/login")
+    
+    if request.method == "POST":
+        title = request.form["title"]
+        description = request.form.get("description", "")
+
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute("INSERT INTO tasks (user_id, title, description) VALUES (%s, %s, %s)", (session["user_id"], title, description))
+        conn.commit()
+        cur.close()
+        conn.close()
+
+        return redirect("/dashboard")
+    return render_template("add_task.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
