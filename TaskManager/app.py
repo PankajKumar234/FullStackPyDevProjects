@@ -71,6 +71,7 @@ def login():
 def dashboard():
     if "user_id" not in session:
         return redirect("/login")
+    
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute("SELECT * FROM tasks WHERE user_id = %s ORDER BY created_at DESC", (session["user_id"],))
