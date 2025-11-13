@@ -14,7 +14,15 @@
 
         <ul>
             {% for task in tasks %}
-                <li><strong>{{ task.title }}</strong> - {{ task.description }}</li>
+                <li>
+                    <strong>{{ task.title }}</strong> - {{ task.description }}
+                    &nbsp;
+                    <a href="/edit-task/{{ task.id }}">✏️ Edit</a>
+                    &nbsp; |&nbsp;
+                    <a href="/delete-task/{{ task.id }}" onclick="return confirm('Delete this task')">🗑️ Delete</a>
+                </li>
+            {% else %}
+                <li>No tasks yet.</li>
             {% endfor %}
         </ul>
 

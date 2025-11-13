@@ -1,7 +1,21 @@
 CREATE DATABASE taskmanagerdb;
+
 CREATE TABLE users(
 	id SERIAL PRIMARY KEY,
 	username VARCHAR(100) UNIQUE NOT NULL,
 	password_hash TEXT NOT NULL
 );
+
 SELECT * from users;
+
+CREATE TABLE tasks (
+	id SERIAL PRIMARY KEY,
+	user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+	title VARCHAR(255) NOT NULL,
+	description TEXT,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+SELECT * FROM tasks;
+
+SELECT * FROM tasks WHERE user_id= "panku" ORDER BY created_at DESC;
