@@ -105,5 +105,48 @@ def add_task():
         return redirect("/dashboard")
     return render_template("add_task.html")
 
+@app.route("/edit-task/<int:task_id>", methods=["GET", "POST"])
+def edit_task(task_id):
+    if "user_id" not in session:
+        return redirect("/login")
+    
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    if request.method == "POST":
+        title = request.form["title"]
+        description = request.form["description"]
+        cur.execute("UPDATE tasks SET title=%s, description=%s WHERE id=%s AND user_id=%s", 
+                    (title, description, task_id, session["user_id"])
+        )
+
+        conn.commit()
+        cur.close()
+        conn.close()
+        return redirect("/dashboard")
+    
+    cur.execute("SELECT * FROM tasks WHERE id=%s AND user_id=%s", (task_id, session["user_id"]))
+    task = cur.fetchone()
+    cur.close()
+    conn.close()
+
+    if not task:
+        return "❌ Task not found or unauthorized."
+    
+    return render_template("edit_task.html", task=task)
+
+@app.route("/delete-task/<int:task_id>")
+def delete_task(task_id):
+    if "user_id" not in session:
+        return redirect("/login")
+    
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("DELETE FROM tasks WHERE id=%s AND user_id=%s", (task_id, session["user_id"]))
+    conn.commit()
+    cur.close()
+    conn.close()
+    return redirect("/dashboard")
+
 if __name__ == "__main__":
     app.run(debug=True)
