@@ -71,7 +71,14 @@ def login():
 def dashboard():
     if "user_id" not in session:
         return redirect("/login")
-    return f"👋 Welcome {session['username']}! <br><br> <a href='/logout'>Logout</a>"
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM tasks WHERE user_id = %s ORDER BY created_at DESC", (session["user_id"],))
+    tasks = cur.fetchall()
+    cur.close()
+    conn.close()
+    
+    return render_template("dashboard.html", username=session["username"], tasks=tasks)
 
 @app.route("/logout")
 def logout():
