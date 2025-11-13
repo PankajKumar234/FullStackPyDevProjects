@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dashboard</title>
+    </head>
+    <body>
+        
+        <h2>👋 Welcome {{ username }}!</h2>
+
+        <a href="/logout">Logout</a>
+        <br><br>
+
+        <h3>Your Tasks</h3>
+
+        <ul>
+            {% for task in tasks %}
+                <li><strong>{{ task.title }}</strong> - {{ task.description }}</li>
+            {% endfor %}
+        </ul>
+
+        <br><br>
+        <a href="/add-task">➕ Add New Task</a>
+    </body>
+</html>
