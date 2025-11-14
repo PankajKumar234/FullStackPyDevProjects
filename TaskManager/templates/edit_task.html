@@ -1,22 +1,20 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Edit Task</title>
-    </head>
-    <body>
-        <h2>Edit Task</h2>
+{% extends "base.html" %}
 
-        <form action="/edit-task/{{ task.id }}" method="POST">
-            <label>Title:</label><br>
-            <input type="text" name="title" value="{{ task.title }}" required><br><br>
+{% block title %}Edit Task{% endblock %}
 
-            <label>Description:</label><br>
-            <textarea name="description">{{ task.description }}</textarea><br><br>
+{% block content %}
+<h2>Edit Task</h2>
 
-            <button type="submit">Save Changes</button>
-        </form>
+<form action="/edit-task/{{ task.id }}" method="POST">
+    <label>Title:</label><br>
+    <input type="text" name="title" value="{{ task.title }}" required><br><br>
 
-        <br>
-        <a href="/dashboard">Back to Dashboard</a>
-    </body>
-</html>
+    <label>Description:</label><br>
+    <textarea name="description">{{ task.description }}</textarea><br><br>
+
+    <button type="submit" class="btn">Save Changes</button>
+</form>
+
+<br>
+<a href="/dashboard" class="btn">Back to Dashboard</a>
+{% endblock %}

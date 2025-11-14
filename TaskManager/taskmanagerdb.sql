@@ -18,4 +18,3 @@ CREATE TABLE tasks (
 
 SELECT * FROM tasks;
 
-SELECT * FROM tasks WHERE user_id= "panku" ORDER BY created_at DESC;

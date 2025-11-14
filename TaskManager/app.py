@@ -14,13 +14,13 @@ def get_db_connection():
         host="localhost",
         database="taskmanagerdb",
         user="postgres",    # Change if your username is different
-        password="Postgres_Password",  # <-- UPDATE THIS
+        password="Hurix@1234",  # <-- UPDATE THIS
         cursor_factory=RealDictCursor
     )
 
 @app.route("/")
 def home():
-    return render_template("base.html")
+    return render_template("login.html")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():

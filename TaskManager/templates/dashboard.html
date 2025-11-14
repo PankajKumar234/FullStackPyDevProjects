@@ -1,32 +1,35 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Dashboard</title>
-    </head>
-    <body>
-        
-        <h2>👋 Welcome {{ username }}!</h2>
+{% extends "base.html" %}
 
-        <a href="/logout">Logout</a>
-        <br><br>
+{% block title %}Dashboard{% endblock %}
 
-        <h3>Your Tasks</h3>
+{% block content %}
+<h2>👋 Welcome, {{ username }}</h2>
 
-        <ul>
-            {% for task in tasks %}
-                <li>
-                    <strong>{{ task.title }}</strong> - {{ task.description }}
-                    &nbsp;
-                    <a href="/edit-task/{{ task.id }}">✏️ Edit</a>
-                    &nbsp; |&nbsp;
-                    <a href="/delete-task/{{ task.id }}" onclick="return confirm('Delete this task')">🗑️ Delete</a>
-                </li>
-            {% else %}
-                <li>No tasks yet.</li>
-            {% endfor %}
-        </ul>
+<a class="btn" href="/logout">Logout</a>
+<br><br>
 
-        <br><br>
-        <a href="/add-task">➕ Add New Task</a>
-    </body>
-</html>
+<h3>Your Tasks</h3>
+
+{% for task in tasks %}
+<div class="task">
+    <div>
+        <span class="task-title">{{ task.title }}</span>
+        <br>
+        <small>{{ task.description }}</small>
+    </div>
+    <div>
+        <a class="btn" href="/edit-task/{{ task.id }}">✏️ Edit</a>
+        <button onclick="confirmDelete({{ task.id }})"
+                class="btn"
+                style="background-color: #dc3545;">
+            🗑️ Delete
+        </button>
+    </div>
+</div>
+{% else %}
+<p>No tasks yet.</p>
+{% endfor %}
+
+<a href="/add-task">➕ Add New Task</a>
+
+{% endblock %}

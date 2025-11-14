@@ -1,24 +1,20 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Add Task</title>
-    </head>
-    <body>
+{% extends "base.html" %}
 
-        <h2>Add Task</h2>
+{% block title %}Add Task{% endblock %}
 
-        <form action="/add-task" method="POST">
-            <label>Title:</label><br>
-            <input type="text" name="title" required><br><br>
+{% block content %}
+<h2>Add Task</h2>
 
-            <label>Description:</label><br>
-            <textarea name="description"></textarea><br><br>
+<form action="/add-task" method="POST">
+    <label>Title:</label><br>
+    <input type="text" name="title" required><br><br>
 
-            <button type="submit">Add Task</button>
-        </form>
+    <label>Description:</label><br>
+    <textarea name="description"></textarea><br><br>
 
-        <br>
-        <a href="/dashboard">Back to Dashboard</a>
+    <button type="submit" class="btn">Add Task</button>
+</form>
 
-    </body>
-</html>
+<br>
+<a href="/dashboard" class="btn">Back to Dashboard</a>
+{% endblock %}
