@@ -6,7 +6,20 @@
         <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
     </head>
     <body>
-        <div class="container">
+        <div class="container fade-in">
+            <div class="navbar">
+                <h2>Task Manager</h2>
+
+                <div class="nav-right">
+                    {% if session.get('user_id') %}
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/logout">Logout</a>
+                    {% else %}
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
+                    {% endif %}
+                </div>
+            </div>
             {% block content %}{% endblock %}
         </div>
     </body>
